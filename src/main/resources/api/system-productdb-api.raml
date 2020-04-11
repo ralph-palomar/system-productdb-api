@@ -1,0 +1,37 @@
+#%RAML 1.0
+title: Product Database API
+description: This API connects to the Product Database.
+version: v1
+
+types:
+  productInfo: !include types/productInfo.dataType.raml
+  productStatus: !include types/productStatus.dataType.raml
+
+/v1:
+  /products:
+    get: 
+      queryParameters: 
+        status:
+          type: string
+          enum: [ "NEW", "PROCESSED" ]
+      responses: 
+        200:
+          body:
+            application/json:  
+              type: productInfo[]
+              example: !include examples/productInfo.list.example.json  
+    put:
+      body:
+        application/json:
+          type: productStatus[]
+          example: !include examples/productStatus.list.example.json
+      responses:
+        200:
+          body:
+            application/json:
+              properties:
+                processed: boolean
+              example: |
+                {
+                  "processed": true
+                }

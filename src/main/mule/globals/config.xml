@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="61b1ecc9-2a2c-44db-a0a8-14ed8ead9290" file="extensions/common.yaml" />
+	<configuration-properties doc:name="Configuration properties" doc:id="694dc59c-da4d-46bf-a1b1-c541ada1800a" file="extensions/${mule.env}.yaml" />
+	<secure-properties:config name="secure-properties-config" doc:name="Secure Properties Config" doc:id="b42387f9-dfc8-4bfd-8775-f62e9866114d" file="extensions/${mule.env}-secured.yaml" key="${mule.key}" />
+	<configuration doc:name="Configuration" doc:id="a4377952-69df-4309-935b-333b1f115f05" defaultErrorHandler-ref="globalErrorHandler" />
+	<http:listener-config name="system-productdb-api-httpListenerConfig">
+    	<http:listener-connection host="0.0.0.0" port="${http.port}" />
+    </http:listener-config>
+    <apikit:config name="system-productdb-api-config" api="api\system-productdb-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+	<db:config name="database-config" doc:name="Database Config" doc:id="5458186a-3c97-40cb-b3c4-9fc4939896eb" >
+		<db:generic-connection url="jdbc:mariadb://${database.host}:${database.port}/" user="${secure::database.user}" password="${secure::database.password}" driverClassName="org.mariadb.jdbc.Driver">
+		</db:generic-connection>
+	</db:config>
+</mule>

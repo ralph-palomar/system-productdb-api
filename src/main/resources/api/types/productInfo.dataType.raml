@@ -1,0 +1,15 @@
+#%RAML 1.0 DataType
+usage: Product Information
+
+properties:
+  productId:
+    type: integer
+  status:
+    type: string
+    enum: [ "NEW", "PROCESSED" ]
+  productName:
+    type: string
+  description:
+    type: string
+  price:
+    type: number

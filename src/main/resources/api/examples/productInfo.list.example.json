@@ -1,0 +1,37 @@
+[
+	{
+		"productId": 87765,
+		"status": "NEW",
+		"productName": "Nutella Ferrero",
+		"description": "Hazelnut spread with cocoa",
+		"price": 51.25
+	},
+	{
+		"productId": 24590,
+		"status": "NEW",
+		"productName": "Aquafina",
+		"description": "Purified water",
+		"price": 18.85
+	},
+	{
+		"productId": 93244,
+		"status": "NEW",
+		"productName": "Southdale Farm",
+		"description": "Fresh milk",
+		"price": 25.99
+	},
+	{
+		"productId": 86329,
+		"status": "NEW",
+		"productName": "Bounty Fresh",
+		"description": "Large Eggs",
+		"price": 65.90
+	},
+	{
+		"productId": 77600,
+		"status": "NEW",
+		"productName": "Goldseas",
+		"description": "Canned yellowfin tuna",
+		"price": 50.00
+	}
+]

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="subflow-query-new-products" doc:id="b5145bb4-41d1-4336-90e3-7e4fa4e787e0" >
+		<db:select doc:name="Select New Products" doc:id="7b614855-ec36-4615-aa6f-196054b364dc" config-ref="database-config">
+			<db:sql >SELECT id, name, status, description, price FROM inventory.product WHERE status = 'NEW'</db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform to JSON Payload" doc:id="f91c2387-9ddd-481b-aa6c-0db0aacbda8e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload map (record) ->
+{
+	productId: record.id,
+	status: record.status,
+	productName: record.name,
+	description: record.description,
+	price: record.price
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="287a8b5d-a1e1-411f-9f57-ffe3ba4ebd67" />
+	</sub-flow>
+</mule>
